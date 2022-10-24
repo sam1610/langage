@@ -1,25 +1,57 @@
-import logo from './logo.svg';
 import './App.css';
+import { withAuthenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css"
+import QuestForm from './components/QuestForm';
+import { useEffect, useState } from 'react';
+import { listQuests } from './graphql/queries';
+import { API } from 'aws-amplify';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+function App({ signOut, user }) {
+  const [notes, setNotes] = useState([])
+  useEffect(() => {
+    fetchNotes().then(
+      (note)=> setNotes(note)
+    );
+
+  }, []);
+
+  async function fetchNotes() {
+    const apiData = await API.graphql({ query: listQuests });
+    return apiData.data.listQuests.items;
+    
+  }
+ 
+ return (
+   <div className="App">
+    
+     <h1>Hello {user.attributes.email}</h1>
+     <button onClick={signOut}>Sign out</button>
+     <QuestForm  currentUser={user.attributes}/>
+     <div style={styles.container}>
+      <ul>
+
+      <h2>Your Items</h2>
+      {notes.map( (note)=> (
+        <li key={note.id} >{note.textOrg}</li>
+      ))}
+
+      </ul>
+  
+  
     </div>
-  );
-}
 
-export default App;
+   </div>
+ );
+}
+const styles = {
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    // flexDirection: 'column',
+    backgroundColor: '#023047',
+    color: 'white',
+    marginTop: 10,
+    padding: 10,
+  },
+};
+export default withAuthenticator(App);

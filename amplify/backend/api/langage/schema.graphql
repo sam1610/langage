@@ -1,0 +1,19 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+type Quest @model @auth(
+ rules:[
+   { allow:owner, operations:[create,read, update]},
+   { allow:groups , groups:["Admin"] , operations:[create,read, delete, update]}
+ ]
+) {
+ id: ID!
+ email: String!
+ lang: String!
+ textOrg:String!
+ audioUrlOrg:AWSURL
+ textSt:String
+ audioUrlSt:AWSURL
+ mark:Float
+ answer:Boolean
+ schedOn:AWSDate
+}
