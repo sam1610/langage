@@ -52,5 +52,12 @@
         }
       }
     }
+  },
+  "predictions": {
+    "Sppech2TextApi": {
+      "providerPlugin": "awscloudformation",
+      "service": "Polly",
+      "convertType": "speechGenerator"
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { API } from "aws-amplify"
 import { useState } from "react";
 import { createQuest } from "../graphql/mutations";
+
  
  
  
@@ -40,7 +41,7 @@ function QuestForm(props) {
            <h2> Add new Question</h2>
            <input type="email" value={user.email} onChange={handleChange("email")} />
            <select name="LangId" onChange={handleChange("lang")} value={quest.lang} >
-            <option value="None" diabled > Language....</option>
+            <option value="None"  > Language....</option>
             <option value="Ar"> عربي</option>
             <option value="En"> En</option>
             <option value="Fr"> Fr</option>
@@ -51,6 +52,8 @@ function QuestForm(props) {
            <input type="date" placeholder="Scheduled On" value={quest.schedOn} onChange={handleChange("schedOn")} />
            <button type="submit"  > Add New Question</button>
        </form>
+       <GridData rowData={quest}> </GridData>
+    
      </div>
    );
  }
