@@ -52,8 +52,7 @@ function QuestForm(props) {
            <input type="date" placeholder="Scheduled On" value={quest.schedOn} onChange={handleChange("schedOn")} />
            <button type="submit"  > Add New Question</button>
        </form>
-       <GridData rowData={quest}> </GridData>
-    
+     
      </div>
    );
  }

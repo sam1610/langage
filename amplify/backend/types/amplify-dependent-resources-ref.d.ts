@@ -15,5 +15,12 @@ export type AmplifyDependentResourcesAttributes = {
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
+    },
+    "predictions": {
+        "Sppech2TextApi": {
+            "region": "string",
+            "language": "string",
+            "voice": "string"
+        }
     }
 }
