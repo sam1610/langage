@@ -60,7 +60,7 @@ useEffect(() => {
 
 
    <>
-   <QuestForm  currentUser={props.currentUser}/>
+   {/* <QuestForm  currentUser={props.currentUser}/> */}
     <div className="ag-theme-alpine"  style={{height:500, width:1000}}>
      
      <AgGridReact

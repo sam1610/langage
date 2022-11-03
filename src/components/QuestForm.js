@@ -1,13 +1,14 @@
 import { API } from "aws-amplify"
 import { useState } from "react";
 import { createQuest } from "../graphql/mutations";
+import { Tableau } from "./Tableau";
 
  
  
  
 function QuestForm(props) {
     const [user, setUser] = useState(props.currentUser);
-    console.log(props.currentUser);
+    // console.log(props.currentUser);
     // const [user, setUser] = useState(null)
     // useEffect(() => {
     //      Auth.currentAuthenticatedUser().then(
@@ -36,7 +37,8 @@ function QuestForm(props) {
        );
    }
    return (
-     <div className="App">
+
+    <> <div className="App">
        <form  onSubmit={handleSubmit}>
            <h2> Add new Question</h2>
            <input type="email" value={user.email} onChange={handleChange("email")} />
@@ -53,7 +55,10 @@ function QuestForm(props) {
            <button type="submit"  > Add New Question</button>
        </form>
      
-     </div>
+     </div> 
+     <Tableau  currentUser={props.currentUser}/>
+     </>
+     
    );
  }
  

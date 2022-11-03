@@ -26,7 +26,7 @@ function App({ signOut, user }) {
     
      <h1>Hello {user.attributes.email}</h1>
      <button onClick={signOut}>Sign out</button>
-     <Tableau  currentUser={user.attributes}/>
+     <QuestForm  currentUser={user.attributes}/>
  
    </div>
  )}
