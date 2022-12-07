@@ -22,5 +22,11 @@ export type AmplifyDependentResourcesAttributes = {
             "language": "string",
             "voice": "string"
         }
+    },
+    "storage": {
+        "audioStorage": {
+            "BucketName": "string",
+            "Region": "string"
+        }
     }
 }

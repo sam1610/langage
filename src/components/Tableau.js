@@ -5,7 +5,6 @@ import { API } from 'aws-amplify';
 import "ag-grid-enterprise"
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import QuestForm from './QuestForm';
 
 export function Tableau(props) {
   const [gridApi, setGridApi] = useState()
@@ -54,7 +53,7 @@ useEffect(() => {
   fetchNotes().then( note=> {
     setNotes(note)
   })
-}, []);
+}, [props.etat]);
 
   return  (
 

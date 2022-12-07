@@ -20,6 +20,9 @@
       },
       "predictions": {
         "Sppech2TextApi": {}
+      },
+      "storage": {
+        "audioStorage": {}
       }
     }
   }

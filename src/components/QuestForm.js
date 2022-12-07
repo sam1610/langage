@@ -2,6 +2,7 @@ import { API } from "aws-amplify"
 import { useState } from "react";
 import { createQuest } from "../graphql/mutations";
 import { Tableau } from "./Tableau";
+import TextToSpeech from "./TextToSpeech";
 
  
  
@@ -22,6 +23,7 @@ function QuestForm(props) {
  
  
    const [quest, setQuest] = useState(initialize)
+   const [subm, setSubm] = useState(false)
    const handleChange= (key)=>{
        return (e)=>{ setQuest({...quest, [key]:e.target.value})}
    }
@@ -32,8 +34,12 @@ function QuestForm(props) {
            query: createQuest,
            variables:{
             input:{...quest}}
-       }).then(
-           e=>{ setQuest(initialize)}
+       })
+       .then(
+           e=>{ setSubm(!subm)
+            return <TextToSpeech  voix={quest} />
+        
+        }
        );
    }
    return (
@@ -44,7 +50,7 @@ function QuestForm(props) {
            <input type="email" value={user.email} onChange={handleChange("email")} />
            <select name="LangId" onChange={handleChange("lang")} value={quest.lang} >
             <option value="None"  > Language....</option>
-            <option value="Ar"> عربي</option>
+            <option value="Arb"> عربي</option>
             <option value="En"> En</option>
             <option value="Fr"> Fr</option>
             <option value="Es"> Es</option>
@@ -55,8 +61,9 @@ function QuestForm(props) {
            <button type="submit"  > Add New Question</button>
        </form>
      
+     <Tableau    etat={subm}/>
      </div> 
-     <Tableau  currentUser={props.currentUser}/>
+     
      </>
      
    );
