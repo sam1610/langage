@@ -10,9 +10,9 @@ type Quest @model @auth(
  email: String!
  lang: String!
  textOrg:String!
- audioUrlOrg:AWSURL
+ audioUrlOrg:String
  textSt:String
- audioUrlSt:AWSURL
+ audioUrlSt:String
  mark:Float
  answer:Boolean
  schedOn:AWSDate

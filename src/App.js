@@ -3,9 +3,7 @@ import { Amplify } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css"
 import QuestForm from './components/QuestForm';
-import GridData from './components/GridData';
 import { AmazonAIPredictionsProvider } from "@aws-amplify/predictions";
-import { Tableau } from './components/Tableau';
 
 Amplify.addPluggable(new AmazonAIPredictionsProvider())
 function App({ signOut, user }) {

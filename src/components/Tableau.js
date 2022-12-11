@@ -6,7 +6,7 @@ import "ag-grid-enterprise"
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
-export function Tableau(props) {
+export function Tableau({etat}) {
   const [gridApi, setGridApi] = useState()
   const [notes, setNotes] = useState([])
   const myStyle={
@@ -37,7 +37,7 @@ var myIcons={
   }},
   { headerName:"Sheduled On", field:"schedOn",sortable:true, filter:"agDateColumnFilter" },
   
-  { headerName:"Audio", field:"AudioUrlorg", flex:2, cellRenderer:AudioCell}
+  { headerName:"Audio", field:"audioUrlOrg", flex:2, cellRenderer:AudioCell}
 ]
 
 const onGridReady=(params)=>{
@@ -53,7 +53,7 @@ useEffect(() => {
   fetchNotes().then( note=> {
     setNotes(note)
   })
-}, [props.etat]);
+}, [etat]);
 
   return  (
 
@@ -72,6 +72,7 @@ useEffect(() => {
       icons={myIcons}
       animateRows={true}>
     </AgGridReact>
+    
   </div>
    </>
   )

@@ -5,24 +5,24 @@ import { Predictions } from "aws-amplify";
 // Amplify.configure(awsconfig);
  
  
-function TextToSpeech(props) {
+function TextToSpeech({quest}) {
 
   const [audioStream, setAudioStream] = useState();
   const voiceId={ Fr:"Lea", En:"Emma", Es:"Lucia", Arb:"Zeina"}
-  console.log(props.voix);
+  console.log(quest);
 
     Predictions.convert({
       textToSpeech: {
         source: {
-          text: props.voix.textOrg,
-          language: props.voix.lang 
+          text: quest.textOrg,
+          language: quest.lang 
         },
-        voiceId: voiceId[props.voix.lang]
+        voiceId: voiceId[quest.lang]
       }
     }).then(result => {
       
       setAudioStream(result.speech.url);
-      console.log(audioStream);
+      console.log(" AudioStream TextToSpeech: ",audioStream);
     
     })
       .catch(err => console.log(err))
