@@ -2,19 +2,13 @@ import { API } from "aws-amplify"
 import { useState } from "react";
 import { createQuest } from "../graphql/mutations";
 import { Tableau } from "./Tableau";
-import { Predictions } from "aws-amplify";
+import { Predictions , Storage} from "aws-amplify";
+
 
 
 
  
- function QuestForm({currentUser}) {
-    // const [user, setUser] = useState(currentUser);
-    // console.log(props.currentUser);
-    // const [user, setUser] = useState(null)
-    // useEffect(() => {
-    //      Auth.currentAuthenticatedUser().then(
-    //         user => setUser(user.attributes.email)); }, 
-    //         []);
+   function   QuestForm({currentUser}) {
     
     const initialize={
         email:`${currentUser.email}`,lang:"",textOrg:"",schedOn:"", audioUrlOrg:""
@@ -23,18 +17,47 @@ import { Predictions } from "aws-amplify";
  
    const [quest, setQuest] = useState(initialize)
    const [subm, setSubm] = useState(false)
-   const voiceId={ Fr:"Lea", En:"Emma", Es:"Lucia", Arb:"Zeina"}
+   const voiceId={ Fr:"Mathieu", En:"Emma", Es:"Lucia", Arb:"Zeina"}
 
    const handleChange= (key)=>{
        return (e)=>{ setQuest({...quest, [key]:e.target.value})}
    }
- 
+
+
+     function S3Storage(blb){
+    
+    fetch(blb).then(r=>r.blob()).then( 
+      async blob => {
+         const flPut=  await Storage.put(`audio%${currentUser.email}%${Date.now()}`, blob, {
+        
+            contentType:"audio/mp3",
+            level:"public"
+        });
+        const audi0= await Storage.get(flPut.key, {level:'public'})  
+        // setQuest( current =>{ return {...current, "audioUrlOrg":audi0}})  
+        console.log(audi0);  
+        await API.graphql({
+          query: createQuest,
+          variables:{
+           input:{...quest,audioUrlOrg:audi0 }
+       }
+      })
+      .then(
+          e=>{ setSubm(!subm)
+       }
+      );     
+       
+      }
+
+)
+      
+
+   }
    const handleSubmit= async (e)=>{
        e.preventDefault()
-       console.log(quest);
 
-// call the function 
- Predictions.convert({
+// call the Conversion function 
+   await Predictions.convert({
         textToSpeech: {
           source: {
             text: quest.textOrg,
@@ -42,26 +65,12 @@ import { Predictions } from "aws-amplify";
           },
           voiceId: voiceId[quest.lang]
         }
-      }).then(result => {
-        
-        setQuest({...quest, audioUrlOrg:result.speech.url});
-        console.log(" AudioStream : ",quest);
-      
-      })
+      }).then( result => 
 
-// 
-
-        API.graphql({
-           query: createQuest,
-           variables:{
-            input:quest
-        }
-       })
-       .then(
-           e=>{ setSubm(!subm)
-            // return <TextToSpeech  voix={quest} />       
-        }
-       );
+        // s3 Storage
+          S3Storage(result.speech.url)
+    )
+     
    }
    return (
 

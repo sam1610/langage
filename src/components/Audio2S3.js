@@ -1,8 +1,9 @@
 import { Storage } from "aws-amplify";
 import { useState } from "react";
 
-export  async function  Audio2S3 ( blb, email){
+export  default async function  Audio2S3 ( blb, email){
 const [audioUrl, setaudioUrl] = useState("")
+console.log(blb, email);
   await fetch(blb)
     .then(
       r=>r.blob())
@@ -13,13 +14,15 @@ const [audioUrl, setaudioUrl] = useState("")
               contentType:"audio/mp3",
               level:"public"
           });
-          setaudioUrl(await Storage.get(flPut.key, {level:'public'}));
+          setaudioUrl(await Storage.get(flPut.key, {level:'public'}) ) 
+          console.log("S3 SignedUrl : ", audioUrl);
           // setaudioUrl(()=> encodeURIComponent(flPut.key));
+          return audioUrl
         } catch (err) {
           console.log("File upload Error", err);
         }}
   
   )
-console.log("S3 SignedUrl : ", audioUrl);
+
 return audioUrl
 }
