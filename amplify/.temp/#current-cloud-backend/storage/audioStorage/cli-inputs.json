@@ -1,0 +1,14 @@
+{
+  "resourceName": "audioStorage",
+  "policyUUID": "0c925e89",
+  "bucketName": "audiostorage2022bh",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

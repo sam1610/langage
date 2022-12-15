@@ -28,14 +28,14 @@ import { Predictions , Storage} from "aws-amplify";
     
     fetch(blb).then(r=>r.blob()).then( 
       async blob => {
-         const flPut=  await Storage.put(`audio%${currentUser.email}%${Date.now()}`, blob, {
+         const flPut=  await  Storage.put(`audio%${currentUser.email}%${Date.now()}`, blob, {
         
             contentType:"audio/mp3",
             level:"public"
         });
-        const audi0= await Storage.get(flPut.key, {level:'public'})  
+        const audi0=  Storage.get(flPut.key, {level:'public'})  
         // setQuest( current =>{ return {...current, "audioUrlOrg":audi0}})  
-        console.log(audi0);  
+         
         await API.graphql({
           query: createQuest,
           variables:{
